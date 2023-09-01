@@ -1,11 +1,31 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.db.models import Count
+from django.contrib.auth.decorators import login_required
+
 
 from .forms import *
 
 
 def projectList(request):
-    return render(request, 'project_exhib/projectList.html')
+    Projects = Project.objects.all()
+    CategoriesList = Categories.objects.annotate(project_count = Count('project_category'))
+
+    context = {
+        'Projects':Projects,
+        'CategoriesList':CategoriesList,
+    }
+    return render(request, 'project_exhib/projectList.html', context)
+
+def projectDetails(request, slug):
+    project_obj = Project.objects.get(slug = slug)
+    CategoriesList = Categories.objects.annotate(project_count = Count('project_category'))
+
+    context = {
+        'project':project_obj,
+        'CategoriesList':CategoriesList,
+    }
+    return render(request, 'project_exhib/projectDetails.html', context)
 
 # GROUP CRUD APIS START FROM HERE 
 def addGroup(request):
@@ -46,12 +66,15 @@ def deleteGroup(request, uid):
 
 
 # PROJECT CRUD APIS START FROM HERE 
+@login_required(login_url='home')
 def addProject(request):
     form = ProjectForm()
     if request.method == "POST":
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            project = form.save(commit=False)
+            project.user = request.user
+            project.save()
         return redirect('home')
     context = {
         'form':form

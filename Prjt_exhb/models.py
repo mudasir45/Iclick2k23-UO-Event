@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 import os
 import uuid
 
@@ -19,13 +21,13 @@ def get_upload_path(instance, filename):
 
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    category = models.ForeignKey(Categories, related_name='project_category', on_delete=models.CASCADE)
     title = models.CharField(max_length=200, null=True, blank=True)
-    slug = models.SlugField(null=True, blank=True)
     sub_title = models.CharField(max_length=200, null=True, blank=True)
-    body = models.TextField(max_length=5000, null=True, blank=True)
+    body = RichTextUploadingField(max_length=5000, null=True, blank=True)
     group = models.ForeignKey('Group', on_delete=models.CASCADE)
     thumbnail = models.ImageField(upload_to=get_upload_path)
+    slug = models.SlugField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
     

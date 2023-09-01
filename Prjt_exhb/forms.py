@@ -12,4 +12,5 @@ class ProjectForm(ModelForm):
     
     class Meta:
         model = Project
-        exclude = ['slug']
+        exclude = ['slug', 'user']
+    

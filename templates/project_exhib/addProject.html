@@ -13,10 +13,10 @@
 </style>
 <div class="container">
     <div class="row">
-        <div class="col-md-6 m-5 border rounded p-5">
+        <div class="col-md-10 m-5 border rounded p-5">
             <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <!-- {{form.media}} -->
+                {{form.media}}
                 {{form|crispy}}
                 <input type="submit" class="btn mt-50" value="Submit"/>
             </form>
