@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -137,6 +137,10 @@ def deleteProject(request, uid):
 @login_required(login_url='userLogin')
 def studentPortal(request, username):
     user = User.objects.get(username = username)
+    has_project = Project.objects.filter(user = user).exists()
+    if not has_project:
+        messages.info(request, "It seems that you have not submit any project yet!")
+        return redirect('info')
     try:
         project = Project.objects.get(user = user)
     except Exception as e:
@@ -145,3 +149,16 @@ def studentPortal(request, username):
         'project':project,
     }
     return render(request, 'project_exhib/studentPortal.html', context)
+
+
+
+
+@login_required(login_url='userLogin')
+def projectAproval(request):
+    supervisor = Supervisor.objects.get(user = request.user)
+    projects = Project.objects.filter(supervisor = supervisor)
+    
+    context = {
+        'projects':projects,
+    }
+    return render(request, 'project_exhib/projectAproval.html', context)

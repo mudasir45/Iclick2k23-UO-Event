@@ -22,7 +22,7 @@ def get_upload_path(instance, filename):
 class Project(models.Model):
     uid = models.UUIDField(editable=False, default=uuid.uuid4)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    supervisor = models.ForeignKey('Supervisor', on_delete=models.CASCADE)
+    supervisor = models.ForeignKey('Supervisor', related_name='project_supervisor', on_delete=models.CASCADE)
     category = models.ForeignKey(Categories, related_name='project_category', on_delete=models.CASCADE)
     title = models.CharField(max_length=200, null=True, blank=True)
     sub_title = models.CharField(max_length=200, null=True, blank=True)

@@ -17,4 +17,5 @@ urlpatterns = [
 
 
     path('studentPortal/<str:username>', views.studentPortal, name='studentPortal'),
+    path('projectAproval/', views.projectAproval, name='projectAproval'),
 ]
