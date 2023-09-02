@@ -5,7 +5,7 @@ class GroupForm(ModelForm):
     
     class Meta:
         model = Group
-        fields = '__all__'
+        exclude = ['user']
 
 
 class ProjectForm(ModelForm):

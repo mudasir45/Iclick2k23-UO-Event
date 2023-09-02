@@ -20,13 +20,18 @@ def get_upload_path(instance, filename):
     return os.path.join(str(name), filename)
 
 class Project(models.Model):
+    uid = models.UUIDField(editable=False, default=uuid.uuid4)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    supervisor = models.ForeignKey('Supervisor', on_delete=models.CASCADE)
     category = models.ForeignKey(Categories, related_name='project_category', on_delete=models.CASCADE)
     title = models.CharField(max_length=200, null=True, blank=True)
     sub_title = models.CharField(max_length=200, null=True, blank=True)
     body = RichTextUploadingField(max_length=5000, null=True, blank=True)
     group = models.ForeignKey('Group', on_delete=models.CASCADE)
     thumbnail = models.ImageField(upload_to=get_upload_path)
+    is_approved = models.BooleanField(default=False)
+    is_winner = models.BooleanField(default=False)
+    winner_title = models.CharField(max_length=50, null=True, blank=True)
     slug = models.SlugField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -55,6 +60,7 @@ def get_group_upload_path(instance, filename):
 
 class Group(models.Model):
     uid = models.UUIDField(editable=False, default=uuid.uuid4)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     group_name = models.CharField(max_length=50, null=True, blank=True)
     department = models.CharField(max_length=50, null=True, blank=True)
     smester = models.IntegerField(null=True, blank=True)

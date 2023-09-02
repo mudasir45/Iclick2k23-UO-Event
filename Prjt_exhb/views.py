@@ -17,13 +17,13 @@ def projectList(request):
     }
     return render(request, 'project_exhib/projectList.html', context)
 
-def projectDetails(request, slug):
-    project_obj = Project.objects.get(slug = slug)
-    CategoriesList = Categories.objects.annotate(project_count = Count('project_category'))
+def projectDetails(request, uid):
+    project_obj = Project.objects.get(uid = uid)
+    group_obj = project_obj.group
 
     context = {
         'project':project_obj,
-        'CategoriesList':CategoriesList,
+        'group_obj':group_obj,
     }
     return render(request, 'project_exhib/projectDetails.html', context)
 
@@ -33,7 +33,9 @@ def addGroup(request):
     if request.method == "POST":
         form = GroupForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            group = form.save(commit=False)
+            group.user = request.user
+            group.save()
         return redirect('home')
     context = {
         'form':form
@@ -81,8 +83,8 @@ def addProject(request):
     }
     return render(request, 'project_exhib/addProject.html', context)
 
-def updateProject(request, slug):
-    project_obj = Project.objects.get(slug = slug)
+def updateProject(request, uid):
+    project_obj = Project.objects.get(uid = uid)
     form = ProjectForm(instance=project_obj)
     if request.method == "POST":
         form = ProjectForm(request.POST, request.FILES, instance=project_obj)
@@ -94,8 +96,8 @@ def updateProject(request, slug):
     }
     return render(request, 'project_exhib/addProject.html', context)
 
-def deleteProject(request, slug):
-    project_obj = Project.objects.get(slug = slug)
+def deleteProject(request, uid):
+    project_obj = Project.objects.get(uid = uid)
     if request.method == "POST":
         project_obj.delete()
         return redirect('home')

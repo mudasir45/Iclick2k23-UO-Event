@@ -6,9 +6,9 @@ urlpatterns = [
     # PROJECT CRUD URLS 
     path('projectList/', views.projectList, name='projectList'),
     path('addProject/', views.addProject, name='addProject'),
-    path('updateProject/<str:slug>', views.updateProject, name='updateProject'),
-    path('deleteProject/<str:slug>', views.deleteProject, name='deleteProject'),
-    path('projectDetails/<str:slug>', views.projectDetails, name='projectDetails'),
+    path('updateProject/<str:uid>', views.updateProject, name='updateProject'),
+    path('deleteProject/<str:uid>', views.deleteProject, name='deleteProject'),
+    path('projectDetails/<str:uid>', views.projectDetails, name='projectDetails'),
    
     # GROUP CRUD URLS 
     path('addGroup/', views.addGroup, name='addGroup'),
