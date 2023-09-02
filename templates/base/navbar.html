@@ -23,7 +23,7 @@
                     <!-- Logo -->
                     <div class="col-xl-2 col-lg-2 col-md-1">
                         <div class="logo">
-                            <a href="index.html"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+                            <a href="{% url 'home' %}"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
                         </div>
                     </div>
                     <div class="col-xl-10 col-lg-10 col-md-10">
@@ -32,23 +32,29 @@
                             <div class="main-menu f-right d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="{% url 'home' %}">Home</a></li>
                                         <li><a href="about.html">About</a></li>
                                         <li><a href="spakers.html">Spakers</a></li>
                                         <li><a href="schedule.html">Schedule</a></li>
-                                        <li><a href="blog.html">Blog</a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html">Blog</a></li>
+                                        <li><a href="{% url 'projectList' %}">Projects</a>
+                                            <!-- <ul class="submenu">
+                                                <li><a href="">Projects</a></li>
                                                 <li><a href="blog_details.html">Blog Details</a></li>
                                                 <li><a href="elements.html">Element</a></li>
-                                            </ul>
+                                            </ul> -->
                                         </li>
                                         <li><a href="contact.html">Contact</a></li>
                                     </ul>
                                 </nav>
                             </div>
                             <div class="header-right-btn f-right d-none d-lg-block ml-30">
-                                <a href="#" class="btn header-btn">Get Your Ticket</a>
+                                
+                                {% if request.user.isauthenticated %}
+                                    <a href="{% url 'userLogin' %}" class="btn header-btn">{{request.user.username}}</a>
+                                {% else %}
+                                    <a href="{% url 'userLogin' %}" class="btn header-btn">Login</a>
+                                {% endif %}
+                                    
                             </div>
                         </div>
                     </div>   

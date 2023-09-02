@@ -14,4 +14,7 @@ urlpatterns = [
     path('addGroup/', views.addGroup, name='addGroup'),
     path('updateGroup/<str:uid>', views.updateGroup, name='updateGroup'),
     path('deleteGroup/<str:uid>', views.deleteGroup, name='deleteGroup'),
+
+
+    path('studentPortal/<str:username>', views.studentPortal, name='studentPortal'),
 ]

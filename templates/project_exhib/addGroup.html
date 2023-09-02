@@ -8,6 +8,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 m-5 border rounded p-5">
+            <h2>Register Your Group</h2>
+            {% include 'alerts/alert.html' %}
             <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <!-- {{form.media}} -->
