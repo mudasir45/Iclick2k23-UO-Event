@@ -55,12 +55,12 @@
                         <h2 style="color: #2d2d2d;">{{project.title}} <a href="{% url 'updateProject' project.uid %}"><i class="fa fa-edit"></i></a></h2>
                         <p style="color: #2d2d2d; font-weight: bold;">{{project.sub_title}} </p>
                         <ul class="blog-info-link mt-3 mb-4">
-                           <li><a href="#"><i class="fa fa-user"></i>{{project.category.name}}</a> </li>
+                           <li><a href="#"><i class="fa fa-archive"></i>{{project.category.name}}</a> </li>
                            <!-- <li><a href="#"><i class="fa fa-comments"></i>{{project.group.group_name}}</a></li> -->
                            <span class="pills">
                             <i>
                             {% if project.is_approved %}
-                                Active
+                                Approved
                             {% else %}
                                 Pending
                             {% endif %}
@@ -126,9 +126,13 @@
                         <h4 class="widget_title" style="color: #2d2d2d;">Notifications</h4>
                         
                         <ul class="list cat-list">
-                              <li>
-                                 <!-- <p class="name"><b>{{project.supervisor.user.first_name}} </b></p> -->
-                              </li>
+                           
+                           {% for alert in alerts %}
+                           <li class="border rounded bg-info p-2 m-2">
+                                 <small class="name text-light">{{alert.message}}</small>
+                           </li>   
+                           {% endfor %}
+                                 
                         </ul>
                      </aside>
                    

@@ -5,17 +5,36 @@ from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+from django.template.loader import render_to_string
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from .send_mails import send_info_mails
 from .forms import *
+from .models import Notification
+
+POSTS_PER_PAGE = 6
 
 @login_required(login_url='userLogin')
 def projectList(request):
-    Projects = Project.objects.all()
+    Projects = Project.objects.filter(is_approved = True)
     CategoriesList = Categories.objects.annotate(project_count = Count('project_category'))
+
+    page = request.GET.get('page', 1)
+    PostPaginator = Paginator(Projects, POSTS_PER_PAGE)
+    
+    try:
+        Projects = PostPaginator.page(page)
+    except PageNotAnInteger:
+        Projects = PostPaginator.page(1)
+    except EmptyPage:
+        Projects = PostPaginator.page(PostPaginator.num_pages)
+    
 
     context = {
         'Projects':Projects,
         'CategoriesList':CategoriesList,
+        'paginator' : PostPaginator,
+        'IsPaginated' : True,
     }
     return render(request, 'project_exhib/projectList.html', context)
 
@@ -100,7 +119,7 @@ def addProject(request):
     
     if has_project:
         messages.error(request, "You have already Submit a project! You cannot add one more project")
-        return redirect('addProject')
+        return redirect('info')
     
     form = ProjectForm(user=request.user)
     context = {
@@ -137,6 +156,7 @@ def deleteProject(request, uid):
 @login_required(login_url='userLogin')
 def studentPortal(request, username):
     user = User.objects.get(username = username)
+    alerts = Notification.objects.filter(user = user)
     has_project = Project.objects.filter(user = user).exists()
     if not has_project:
         messages.info(request, "It seems that you have not submit any project yet!")
@@ -147,6 +167,7 @@ def studentPortal(request, username):
         print(e)
     context = {
         'project':project,
+        'alerts':alerts,
     }
     return render(request, 'project_exhib/studentPortal.html', context)
 
@@ -157,7 +178,38 @@ def studentPortal(request, username):
 def projectAproval(request):
     supervisor = Supervisor.objects.get(user = request.user)
     projects = Project.objects.filter(supervisor = supervisor)
-    
+
+    if request.method == "POST":
+        uid = request.POST['uid']
+        action = request.POST.get('action')
+        project = Project.objects.get(uid = uid)
+        if action == 'approve':
+            project.is_approved = True
+            project.save()
+            message = "Your Project has been approved successfully by your supervisor now you can check this in active project list"
+            subject = "Project Approved"
+        else:
+            subject = "Project Disapproved"
+            message = "Your Project was contact with your supervisor as soon as possible"
+        
+        template = render_to_string('main/emailTemplate.html', {
+            'supervisor':supervisor,
+            'project': project,
+            'username' : project.user.username,
+            'message': message
+        })
+        send_to = project.user.email
+        send_info_mails(subject, template, [send_to])
+        alert = Notification.objects.create(user = project.user, message = message)
+
+
+        messages.success(request, "Action complete successfully")
+        return redirect('projectAproval')
+
+        
+
+       
+
     context = {
         'projects':projects,
     }

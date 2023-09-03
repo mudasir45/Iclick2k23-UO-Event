@@ -8,7 +8,8 @@
               
 
                 <a href="{% url 'home' %}"  class="btn btn-success mt-5">Back to Home</a>
-                <a href="{% url 'addProject' %}"  class="btn btn-info mt-5">Register Project</a>
+                <a href="{% url 'addProject' %}"  class="btn btn-info mt-5 mr-5">Submit Project</a>
+                <a href="{% url 'studentPortal' request.user.username %}"  class="btn btn-dark mt-5">Profile</a>
               
         </div>
     </div>

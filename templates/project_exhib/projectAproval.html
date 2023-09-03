@@ -2,21 +2,39 @@
 {% block content %}
 {% load static %}
 {% include 'base/navbar.html' %}
+<style>
+    .custom-btn{
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background: none;
+        text-decoration: underline;
+    }
+    .custom-btn:hover{
+        text-decoration: solid;
+
+    }
+</style>
 
 <div class="container">
     <div class="row">
         <div class="col-md-12 border rounded p-3 m-5">
             
             {% for project in projects %}
-                <ul>
+                <ol type="1">
                     <li style="display: flex; justify-content: space-between;" class="border rounded p-3 m-3"><a href="" class="text-primary">{{project.title}}</a>
-                    <div class="d-inline">
-                        <u><a href="" class="text-success p-1" > Approve </a></u>
-                        <u><a href="" class="text-danger p-1" > Disaprove </a></u>
-                    </div>
-                       
+                        <div class="d-inline">
+                            <form action="{% url 'projectAproval' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden"  value="{{project.uid}}" name="uid">
+                                <u><button type="submit" class="text-success p-1 custom-btn" 
+                                    name="action" value="approve">Approve</button></u>
+                                <u><button type="submit" class="text-danger p-1 custom-btn" 
+                                    name="action" value="disapprove">Disapprove</button></u>
+                            </form>
+                        </div> 
                     </li>
-                </ul>
+                </ol>
             {% endfor %}
                 
         </div>

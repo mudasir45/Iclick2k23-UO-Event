@@ -32,6 +32,7 @@ class Project(models.Model):
     is_approved = models.BooleanField(default=False)
     is_winner = models.BooleanField(default=False)
     winner_title = models.CharField(max_length=50, null=True, blank=True)
+    Total_score = models.FloatField(null=True, blank=True)
     slug = models.SlugField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -65,9 +66,10 @@ class Group(models.Model):
     department = models.CharField(max_length=50, null=True, blank=True)
     smester = models.IntegerField(null=True, blank=True)
     section = models.CharField(max_length=50, null=True, blank=True)
-    student1 = models.CharField(max_length=50, null=True, blank=True)
-    roll_no1 = models.CharField(max_length=50, null=True, blank=True)
-    img1 = models.ImageField(upload_to=get_group_upload_path)
+    lead_member_name = models.CharField(max_length=50, null=True, blank=True)
+    lead_roll_no = models.CharField(max_length=50, null=True, blank=True)
+    lead_member_phone = models.CharField(max_length=50, null=True, blank=True)
+    lead_member_img = models.ImageField(upload_to=get_group_upload_path)
     student2 = models.CharField(max_length=50, null=True, blank=True)
     roll_no2 = models.CharField(max_length=50, null=True, blank=True)
     img2 = models.ImageField(upload_to=get_group_upload_path)
@@ -121,3 +123,14 @@ class Reviewer(models.Model):
     
     def __str__(self) -> str:
         return self.user.first_name
+
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
+    is_read = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.message
+
