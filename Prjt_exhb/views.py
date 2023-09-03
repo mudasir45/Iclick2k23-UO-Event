@@ -177,7 +177,7 @@ def studentPortal(request, username):
 @login_required(login_url='userLogin')
 def projectAproval(request):
     supervisor = Supervisor.objects.get(user = request.user)
-    projects = Project.objects.filter(supervisor = supervisor)
+    projects = Project.objects.filter(supervisor = supervisor, is_approved = False)
 
     if request.method == "POST":
         uid = request.POST['uid']

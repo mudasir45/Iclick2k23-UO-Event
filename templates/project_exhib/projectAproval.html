@@ -24,6 +24,7 @@
                 <ol type="1">
                     <li style="display: flex; justify-content: space-between;" class="border rounded p-3 m-3"><a href="" class="text-primary">{{project.title}}</a>
                         <div class="d-inline">
+                            {% include 'alerts/alert.html' %}
                             <form action="{% url 'projectAproval' %}" method="post">
                                 {% csrf_token %}
                                 <input type="hidden"  value="{{project.uid}}" name="uid">
