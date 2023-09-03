@@ -49,7 +49,12 @@ def userLogin(request):
         current_user = authenticate(request, username=username, password=password)
         if current_user is not None:
                 login(request, current_user)
-                return redirect('home')
+                next_url = request.GET.get('?next')
+                print(next_url)
+                if next_url:
+                    return redirect(next_url)
+                else:
+                    return redirect('home')
         else:
             return JsonResponse({'message':'Invalid Credientials'})
     return render(request, 'accounts/userLogin.html')
