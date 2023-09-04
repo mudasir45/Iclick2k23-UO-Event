@@ -12,6 +12,20 @@ class RattingForm(ModelForm):
     class Meta:
         model = Ratting
         exclude = ['project', 'reviewer']
+        
+    def save(self, commit=True, project=None, reviewer=None):
+        rating_instance = super(RattingForm, self).save(commit=False)
+
+        if project is not None:
+            rating_instance.project = project
+
+        if reviewer is not None:
+            rating_instance.reviewer = reviewer
+
+        if commit:
+            rating_instance.save()
+
+        return rating_instance
 
 
 class ProjectForm(ModelForm):

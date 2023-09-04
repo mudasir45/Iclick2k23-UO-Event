@@ -44,7 +44,18 @@ def projectDetails(request, uid):
     group_obj = project_obj.group
     has_supervisor = Supervisor.objects.filter(user = request.user).exists()
     has_reviewer = Reviewer.objects.filter(user = request.user).exists()
+    
     Ratting_form = RattingForm()
+    if request.method == "POST":
+        reviewer = Reviewer.objects.get(user = request.user)
+        rating_instance = RattingForm(request.POST)
+        if rating_instance.is_valid():
+            rating_instance = rating_instance.save(commit=False)
+            rating_instance.project = project_obj  # Set the project
+            rating_instance.reviewer = reviewer  # Set the reviewer
+            rating_instance.save()
+        messages.success(request, "Action performed successfully!")
+        return redirect('projectList')
     
 
     context = {

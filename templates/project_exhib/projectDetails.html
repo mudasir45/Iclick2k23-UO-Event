@@ -44,10 +44,12 @@
       </div>
       <!-- Hero End -->
       <!--================Blog Area =================-->
+      
       <section class="blog_area single-post-area section-padding">
          <div class="container">
             <div class="row">
                <div class="col-lg-8 posts-list">
+                  {% include 'alerts/alert.html' %}
                   <div class="single-post">
                      <div class="feature-img">
                         <img class="img-fluid" src="{{project.thumbnail.url}}" alt="">
@@ -81,11 +83,12 @@
                      
                   </div>
                   {% if has_reviewer %}
-                        <form action="{% url 'projectDetails' %}" method="post" class="m-3">
+                        <b><h2>Rate this project and also give your best suggession</h2></b>
+                        <form action="{% url 'projectDetails' project.uid %}" method="post" class="m-3">
                            {% csrf_token %}
-                           {{Ratting_form.as_p}}
-                           <button type="submit" class="text-success" 
-                               name="action" value="approve">Approve</button>
+                           {{Ratting_form|crispy}}
+                           <button type="submit" class="btn btn-success" 
+                               name="action" value="approve">Submit</button>
                      
                        </form>
                   {% endif %}
