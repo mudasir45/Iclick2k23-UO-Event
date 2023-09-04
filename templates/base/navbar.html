@@ -51,7 +51,8 @@
                             <div class="header-right-btn f-right d-none d-lg-block ml-30">
                                 
                                 {% if request.user.is_authenticated %}
-                                    <a href="{% url 'studentPortal' request.user.username %}" class="text-dark">@{{request.user.username}}</a>
+                                    <a href="{% url 'studentPortal' request.user.username %}" class="text-primary">@{{request.user.username}}</a>
+                                    <u><a href="{% url 'userLogout' %}" class="text-primary ml-2">LogOut</a></u>
                                 {% else %}
                                     <a href="{% url 'userLogin' %}" class="btn header-btn">Login</a>
                                 {% endif %}

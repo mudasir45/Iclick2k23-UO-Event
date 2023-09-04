@@ -42,10 +42,18 @@ def projectList(request):
 def projectDetails(request, uid):
     project_obj = Project.objects.get(uid = uid)
     group_obj = project_obj.group
+    has_supervisor = Supervisor.objects.filter(user = request.user).exists()
+    has_reviewer = Reviewer.objects.filter(user = request.user).exists()
+    Ratting_form = RattingForm()
+    
 
     context = {
         'project':project_obj,
         'group_obj':group_obj,
+        'has_supervisor':has_supervisor,
+        'has_reviewer':has_reviewer,
+        'has_reviewer':has_reviewer,
+        'Ratting_form':Ratting_form,
     }
     return render(request, 'project_exhib/projectDetails.html', context)
 
@@ -206,11 +214,10 @@ def projectAproval(request):
         messages.success(request, "Action complete successfully")
         return redirect('projectAproval')
 
-        
-
-       
-
     context = {
         'projects':projects,
     }
     return render(request, 'project_exhib/projectAproval.html', context)
+
+
+# def projectRatting(request, uid):

@@ -7,6 +7,12 @@ class GroupForm(ModelForm):
         model = Group
         exclude = ['user']
 
+class RattingForm(ModelForm):
+    
+    class Meta:
+        model = Ratting
+        exclude = ['project', 'reviewer']
+
 
 class ProjectForm(ModelForm):
     

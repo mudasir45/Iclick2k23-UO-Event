@@ -2,6 +2,7 @@
     {% extends 'base/base.html' %}
     {% block content %}
     {% load static %}
+    {% load crispy_forms_tags %}
     {% include 'base/navbar.html' %}
 <style>
    .name{
@@ -12,6 +13,18 @@
       text-decoration: none;
       color: #2d2d2d;
    }
+    .custom-btn{
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background: none;
+        text-decoration: underline;
+    }
+    .custom-btn:hover{
+        text-decoration: solid;
+
+    }
+
 </style>
 
    <main>
@@ -65,187 +78,44 @@
                            <li><a href="#"><i class="fab fa-behance"></i></a></li>
                         </ul>
                      </div>
-                     <div class="navigation-area">
-                        <div class="row">
-                           <div
-                              class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
-                              <div class="thumb">
-                                 <a href="#">
-                                    <img class="img-fluid" src="{% static 'assets/img/post/preview.png' %}" alt="">
-                                 </a>
-                              </div>
-                              <div class="arrow">
-                                 <a href="#">
-                                    <span class="lnr text-white ti-arrow-left"></span>
-                                 </a>
-                              </div>
-                              <div class="detials">
-                                 <p>Prev Post</p>
-                                 <a href="#">
-                                    <h4 style="color: #2d2d2d;">Space The Final Frontier</h4>
-                                 </a>
-                              </div>
-                           </div>
-                           <div
-                              class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-                              <div class="detials">
-                                 <p>Next Post</p>
-                                 <a href="#">
-                                    <h4 style="color: #2d2d2d;">Telescopes 101</h4>
-                                 </a>
-                              </div>
-                              <div class="arrow">
-                                 <a href="#">
-                                    <span class="lnr text-white ti-arrow-right"></span>
-                                 </a>
-                              </div>
-                              <div class="thumb">
-                                 <a href="#">
-                                    <img class="img-fluid" src="{% static 'assets/img/post/next.png' %}" alt="">
-                                 </a>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
+                     
                   </div>
-                  <div class="blog-author">
-                     <div class="media align-items-center">
-                        <img src="{% static 'assets/img/blog/author.png' %}" alt="">
-                        <div class="media-body">
-                           <a href="#">
-                              <h4>Harvard milan</h4>
-                           </a>
-                           <p>Second divided from form fish beast made. Every of seas all gathered use saying you're, he
-                              our dominion twon Second divided from</p>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="comments-area">
-                     <h4>05 Comments</h4>
-                     <div class="comment-list">
-                        <div class="single-comment justify-content-between d-flex">
-                           <div class="user justify-content-between d-flex">
-                              <div class="thumb">
-                                 <img src="{% static 'assets/img/comment/comment_1.png' %}" alt="">
-                              </div>
-                              <div class="desc">
-                                 <p class="comment">
-                                    Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                                    Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
-                                 </p>
-                                 <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                       <h5>
-                                          <a href="#">Emilly Blunt</a>
-                                       </h5>
-                                       <p class="date">December 4, 2017 at 3:12 pm </p>
-                                    </div>
-                                    <div class="reply-btn">
-                                       <a href="#" class="btn-reply text-uppercase">reply</a>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="comment-list">
-                        <div class="single-comment justify-content-between d-flex">
-                           <div class="user justify-content-between d-flex">
-                              <div class="thumb">
-                                 <img src="{% static 'assets/img/comment/comment_2.png' %}" alt="">
-                              </div>
-                              <div class="desc">
-                                 <p class="comment">
-                                    Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                                    Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
-                                 </p>
-                                 <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                       <h5>
-                                          <a href="#">Emilly Blunt</a>
-                                       </h5>
-                                       <p class="date">December 4, 2017 at 3:12 pm </p>
-                                    </div>
-                                    <div class="reply-btn">
-                                       <a href="#" class="btn-reply text-uppercase">reply</a>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="comment-list">
-                        <div class="single-comment justify-content-between d-flex">
-                           <div class="user justify-content-between d-flex">
-                              <div class="thumb">
-                                 <img src="{% static 'assets/img/comment/comment_3.png' %}" alt="">
-                              </div>
-                              <div class="desc">
-                                 <p class="comment">
-                                    Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                                    Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
-                                 </p>
-                                 <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                       <h5>
-                                          <a href="#">Emilly Blunt</a>
-                                       </h5>
-                                       <p class="date">December 4, 2017 at 3:12 pm </p>
-                                    </div>
-                                    <div class="reply-btn">
-                                       <a href="#" class="btn-reply text-uppercase">reply</a>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="comment-form">
-                     <h4>Leave a Reply</h4>
-                     <form class="form-contact comment_form" action="#" id="commentForm">
-                        <div class="row">
-                           <div class="col-12">
-                              <div class="form-group">
-                                 <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
-                                    placeholder="Write Comment"></textarea>
-                              </div>
-                           </div>
-                           <div class="col-sm-6">
-                              <div class="form-group">
-                                 <input class="form-control" name="name" id="name" type="text" placeholder="Name">
-                              </div>
-                           </div>
-                           <div class="col-sm-6">
-                              <div class="form-group">
-                                 <input class="form-control" name="email" id="email" type="email" placeholder="Email">
-                              </div>
-                           </div>
-                           <div class="col-12">
-                              <div class="form-group">
-                                 <input class="form-control" name="website" id="website" type="text" placeholder="Website">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="form-group">
-                           <button type="submit" class="button button-contactForm btn_1 boxed-btn">Post Comment</button>
-                        </div>
-                     </form>
-                  </div>
+                  {% if has_reviewer %}
+                        <form action="{% url 'projectDetails' %}" method="post" class="m-3">
+                           {% csrf_token %}
+                           {{Ratting_form.as_p}}
+                           <button type="submit" class="text-success" 
+                               name="action" value="approve">Approve</button>
+                     
+                       </form>
+                  {% endif %}
                </div>
                <div class="col-lg-4">
                   <div class="blog_right_sidebar">
                      <aside class="single_sidebar_widget post_category_widget">
-                        <h4 class="widget_title" style="color: #2d2d2d;">Group Name</h4>
+                        
+                        {% if has_supervisor %}
+                        <form action="{% url 'projectAproval' %}" method="post" class="m-3">
+                           {% csrf_token %}
+                           <input type="hidden"  value="{{project.uid}}" name="uid">
+                           <u><button type="submit" class="text-success p-1 custom-btn" 
+                               name="action" value="approve">Approve</button></u>
+                           <u><button type="submit" class="text-danger p-1 custom-btn" 
+                               name="action" value="disapprove">Disapprove</button></u>
+                       </form>
+                        {% endif %}
+                           
+                        <h4 class="widget_title" style="color: #2d2d2d;">{{project.group.group_name}}</h4>
                         <ul class="list cat-list">
                               <li>
-                                 <p class="name">Mudassar Amin</p>
-                                 <small class="name" >F20-BSSE-5045</small>
-                                 <p class="name mt-3" >Mudassar Amin</p>
-                                 <small class="name" >F20-BSSE-5045</small>
-                                 <p class="name mt-3" >Mudassar Amin</p>
-                                 <small class="name" >F20-BSSE-5045</small>
-                                 <h5  class="name mt-4">Software Engineering</h5>
+                                 <p class="name">{{project.group.lead_member_name}}</p>
+                                 <small class="name" >{{project.group.lead_roll_no}}</small>
+                                 <p class="name mt-3" >{{project.group.student2}}</p>
+                                 <small class="name" >{{project.group.roll_no2}}</small>
+                                 <p class="name mt-3" >{{project.group.student3}}</p>
+                                 <small class="name" >{{project.group.roll_no3}}</small>
+                                 <h5  class="name mt-4">{{project.group.department}}</h5>
+                                 <h5  class="name mt-4">Smester = ({{project.group.smester}})</h5>
                                  <h3 class="mt-3"><u>University of Okara </u></h3>
                               </li>
                         </ul>
@@ -254,13 +124,12 @@
                         <h4 class="widget_title" style="color: #2d2d2d;">Supervisor</h4>
                         
                         <ul class="list cat-list">
-                              <li>
-                                 <p class="name"><b>Dr Ghulam Ali </b></p>
-                                 <small class="name">(Assistant Professor)</small>
-                                 <small class="name" >PHD Machine Learning</small>
-                                 <p class="name" >HOD Software Engineering</p>
-                                 <h3 class="mt-3"><u>University of Okara </u></h3>
-                              </li>
+                           <li>
+                              <p class="name"><b>{{project.supervisor.user.first_name}} </b></p>
+                              <small class="name">({{project.supervisor.designation}})</small>
+                              <small class="name" >{{project.supervisor.fieldOfStudy}}</small>
+                              <h3 class="mt-3"><u>{{project.supervisor.institute}} </u></h3>
+                           </li>
                         </ul>
                      </aside>
                    
