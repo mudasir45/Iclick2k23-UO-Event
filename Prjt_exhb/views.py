@@ -195,8 +195,12 @@ def studentPortal(request, username):
 
 @login_required(login_url='userLogin')
 def projectAproval(request):
-    supervisor = Supervisor.objects.get(user = request.user)
-    projects = Project.objects.filter(supervisor = supervisor, is_approved = False)
+    try:
+        supervisor = Supervisor.objects.get(user = request.user)
+        projects = Project.objects.filter(supervisor = supervisor, is_approved = False)
+    except:
+        messages.info(request, "It seems that you're not the supervisor! you canot get access to this url")
+        return redirect('info')
 
     if request.method == "POST":
         uid = request.POST['uid']
