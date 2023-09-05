@@ -224,6 +224,7 @@ def projectAproval(request):
         send_to = project.user.email
         send_info_mails(subject, template, [send_to])
         alert = Notification.objects.create(user = project.user, message = message)
+        alert.save()
 
 
         messages.success(request, "Action complete successfully")
