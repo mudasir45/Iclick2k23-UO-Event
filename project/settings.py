@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-93dyo$$zh=aap67y)7*(7z%0_!r*5+5&en9z-=3!*j7ma6hkkn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['iclickevent.herokuapp.com', '127.0.0.1', '.verce.app']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
